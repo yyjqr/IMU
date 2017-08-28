@@ -34,19 +34,37 @@ void setup() {
 
   delay(100);
   getTare();
+  delay(100);
+  getTare();
+  delay(4000);
+  Serial.println("Tare Complete");
+ // writeTag();
 }
 
 void loop() {
 
-  getModel();
-  //getQTN();
-   getSerial();
-   getBaud();
-  // getYPR();
+ // getModel();
+  getQTN();
+ //getSerial();
+ // getBaud();
+   getYPR();
+// getTag();
   delay(1000);
 }
 
-
+/*
+   This function is the heart of the communication with the IMU.
+   It takes 4 byte-length commands in the form of:
+   Command: To read a register this ia always 1
+   Register: The register number to be read
+   Two zeroes (no idea why.  Maybe just to make it 4 bytes long
+   These 4 bytes are combined to create an unsigned long and placed in an array of
+   unsigned longs called "buffer".  This array is transfered to the IMU
+   and the the rsponse is returned in the same buffer.  This buffer is then parsed
+   into the RecPacket structure.  The first entry is broken up into individual
+   bytes which contain information (including error codes).  Additional
+   data is placed in a data array.
+*/
 void spiRead(RecPacket* packet, byte reg) {
 
   /*
@@ -57,25 +75,9 @@ void spiRead(RecPacket* packet, byte reg) {
   */
   unsigned long buffer[16]; //Buffer to transmit and recieve the data from the IMU
 
-  unsigned long temp1 = (unsigned long)(((0 << 8) | (0 << 0)));
-  unsigned long temp2 = (unsigned long)(((reg << 8) | (1 << 0)) & 0x0000FFFF);
-  temp1 = temp1 * 65536;
-  unsigned long combined = temp1 + temp2;
+Transfer(buffer, reg, 1, 16);
 
-
-  SPI.beginTransaction(SPISettings(9600, MSBFIRST, SPI_MODE3));
-  digitalWrite(chipSelectPin, LOW);
-  buffer[0] = combined;
-  buffer[1] = 0;
-  buffer[2] = 0;
-  buffer[3] = 0;
-  for (int y = 4; y < 16; y++) {
-    buffer[y] = 0;
-  }
-  SPI.transfer(buffer, 16);
-  digitalWrite(chipSelectPin, HIGH);
-  SPI.endTransaction();
-
+  // Parsing the data into the RecPacket data type
   packet->zeroByte = (byte)((buffer[0]) & 0x00000FF);
   packet->ComID = (byte)((buffer[0] >> 8) & 0x00000FF);
   packet->RegNum = (byte)((buffer[0] >> 16) & 0x00000FF);
@@ -96,27 +98,90 @@ void spiRead(RecPacket* packet, byte reg) {
   */
 }
 
+
+void spiWrite(RecPacket* packet, byte reg) {
+
+
+  unsigned long buffer[16]; //Buffer to transmit and recieve the data from the IMU
+
+Transfer(buffer, reg, 2, 16);
+
+  // Parsing the data into the RecPacket data type
+  packet->zeroByte = (byte)((buffer[0]) & 0x00000FF);
+  packet->ComID = (byte)((buffer[0] >> 8) & 0x00000FF);
+  packet->RegNum = (byte)((buffer[0] >> 16) & 0x00000FF);
+  packet->ErrorCode = (byte)((buffer[0] >> 24) & 0x00000FF);
+  for (int x = 0; x < 15; x++) {
+    packet->Data[x] =  buffer[x + 1];
+  }
+
+  
+    Serial.print("Zero: ");
+    Serial.println(packet->zeroByte);
+    Serial.print("Command: ");
+    Serial.println(packet->ComID);
+    Serial.print("Register: ");
+    Serial.println(packet->RegNum);
+    Serial.print("Error Code: ");
+    Serial.println(packet->ErrorCode);
+  
+}
+
+
+void writeTag() {
+  RecPacket packet;
+
+  spiWrite(&packet, 0);
+  spiWrite(&packet, 0);
+  //spiRead(&packet, 0);
+
+  Serial.println("Write");
+ /// Serial.println(packet.Data[0]);
+
+}
+
+
+void getTag() {
+  RecPacket packet;
+
+  spiRead(&packet, 0);
+  spiRead(&packet, 0);
+
+  Serial.print("Tag: ");
+  Serial.println(packet.Data[0]);
+
+}
+
+
+
+/*
+   This function returns the model number.
+*/
 void getModel() {
   RecPacket packet;
 
   spiRead(&packet, VN100_REG_MODEL);
-  spiRead(&packet, VN100_REG_MODEL);
-  char serial[12];
-
+  spiRead(&packet, VN100_REG_MODEL); //Second call is for synchronization
+  char model[12];
+  // It requires some rearrangemnet to turn a long into char.  Everything is backwards
+  // otherwise.
   for (int c = 0; c < 4; c++) {
-    serial[c] = (packet.Data[0] >> (c * 8)) & 0x000000FF;
-    serial[c + 4] = (packet.Data[1] >> (c * 8)) & 0x000000FF;
-    serial[c + 8] = (packet.Data[2] >> (c * 8)) & 0x000000FF;
+    model[c] = (packet.Data[0] >> (c * 8)) & 0x000000FF;
+    model[c + 4] = (packet.Data[1] >> (c * 8)) & 0x000000FF;
+    model[c + 8] = (packet.Data[2] >> (c * 8)) & 0x000000FF;
   }
 
   Serial.print("Model Number: ");
   for (int x = 0; x < 12; x++) {
-    Serial.print(serial[x]);
+    Serial.print(model[x]);
   }
-  Serial.println(" ");
+  Serial.println(" "); //Advance the line
 
 }
 
+/*
+   The function returns the serial number
+*/
 
 void getSerial() {
   RecPacket packet;
@@ -129,18 +194,24 @@ void getSerial() {
 
 }
 
+/*
+   This function returns the Baud rate
+*/
 
 void getBaud() {
   RecPacket packet;
 
   spiRead(&packet, VN100_REG_SBAUD);
   spiRead(&packet, VN100_REG_SBAUD);
-  
+
   Serial.print("Baud Rate: ");
   Serial.println(packet.Data[0]);
 
 }
 
+/*
+   This function returns the Yaw Pitch Roll
+*/
 
 void getYPR() {
 
@@ -148,25 +219,60 @@ void getYPR() {
 
   spiRead(&packet, VN100_REG_YPR);
   spiRead(&packet, VN100_REG_YPR);
-  Serial.print("Yaw:");
-  Serial.println(long2float(packet.Data[0]));
+//Serial.print("Yaw:");
+ // Serial.println(long2float(packet.Data[0]));
   Serial.print("Pitch:");
   Serial.println(long2float(packet.Data[1]));
-  Serial.print("Roll:");
-  Serial.println(long2float(packet.Data[2]));
+ // Serial.print("Roll:");
+ // Serial.println(long2float(packet.Data[2]));
 
 }
 
-
+/*
+   This function returns Quaternions
+*/
 void getQTN() {
 
   RecPacket packet;
 
   spiRead(&packet, VN100_REG_QTN);
+  spiRead(&packet, VN100_REG_QTN);
 
+  
+  Serial.print("One:");
+  Serial.println(long2float(packet.Data[0]));
+  Serial.print("Two:");
+  Serial.println(long2float(packet.Data[1]));
+  Serial.print("Three:");
+  Serial.println(long2float(packet.Data[2]));
+  Serial.print("Four:");
+  Serial.println(long2float(packet.Data[3]));
+
+
+float q0 = long2float(packet.Data[0]);
+float q1 = long2float(packet.Data[1]);
+float q2 = long2float(packet.Data[2]);
+float q3 = long2float(packet.Data[3]);
+
+//  float YAW = atan((2.0*(q0*q1+q3*q2))/(q3*q3 - q2*q2 - q1*q1 + q0*q0));
+  float YAW = atan2((q3*q3 - q2*q2 - q1*q1 + q0*q0),(2.0*(q0*q1+q3*q2)));
+  YAW = YAW*180.0/3.14;
+//  Serial.print("Yaw (Quat):");
+//  Serial.println(YAW);
+float PITCH = asin(-2.0*(q0*q2-q1*q3));
+PITCH = PITCH*180.0/3.14;
+  Serial.print("Pitch (Quat):");
+  Serial.println(PITCH);
+float ROLL = atan((2.0*(q1*q2+q0*q3))/(q3*q3 + q2*q2 - q1*q1 - q0*q0));
+ROLL = ROLL*180.0/3.14;
+//  Serial.print("Roll (Quat):");
+//  Serial.println(ROLL);
+  
 }
 
-
+/*
+   This function returns the accelleration rate (m/s^2)
+*/
 
 void getAcc() {
 
@@ -194,48 +300,38 @@ void getAccGain() {
 
 }
 
+/*
+   This function tares the device
+   (It needs to be fixed to work like spiRead)
+*/
 
 void getTare() {
-  byte buffer[24];
+
+  unsigned long buffer[1]; //Buffer to transmit and recieve the data from the IMU
+
+  //Combining the commands in to a 4 byte long
+  unsigned long temp1 = (unsigned long)(((0 << 8) | (0 << 0)));
+  unsigned long temp2 = (unsigned long)(((0 << 8) | (5 << 0)) & 0x0000FFFF);
+  temp1 = temp1 * 65536;
+  unsigned long combined = temp1 + temp2;
+
+  // The transfer
   SPI.beginTransaction(SPISettings(9600, MSBFIRST, SPI_MODE3));
   digitalWrite(chipSelectPin, LOW);
-  //byte buffer[24];
-  buffer[0] = 5;
-  buffer[1] = 0;
-  buffer[2] = 0;
-  buffer[3] = 0;
-  for (int y = 4; y < 24; y++) {
-    buffer[y] = 0;
-  }
-  SPI.transfer(buffer, 24);
+  buffer[0] = combined;
+
+  SPI.transfer(buffer, 1);
   digitalWrite(chipSelectPin, HIGH);
   SPI.endTransaction();
-  delay(4000);
-
-  //Second Read cycle synchronizes the data (Not sure if there is a better way)
-  //Not doing this will result in current read recieving the previous read's reply
-  SPI.beginTransaction(SPISettings(9600, MSBFIRST, SPI_MODE3));
-  digitalWrite(chipSelectPin, LOW);
-  //byte buffer[24];
-  buffer[0] = 5;
-  buffer[1] = 0;
-  buffer[2] = 0;
-  buffer[3] = 0;
-  for (int y = 4; y < 24; y++) {
-    buffer[y] = 0;
-  }
-
-  SPI.transfer(buffer, 24);
-  digitalWrite(chipSelectPin, HIGH);
-  SPI.endTransaction();
-  delay(4000);
-  Serial.println("Tare");
 
 }
+
 /*
    This function converts the output which is an
    unsigned long to a float.  It is done because casting it
    as a float doesn't work.
+   Explanation of a float:
+   https://www3.ntu.edu.sg/home/ehchua/programming/java/datarepresentation.html
 */
 
 float long2float(long value) {
@@ -243,9 +339,6 @@ float long2float(long value) {
   byte Sign = (value >> 31) & 1;
   long Exponent = (value >> 23) & 0x000000FF;
   long Fraction = (value) & 0x007FFFFF;
-  //Serial.println(Sign,BIN);
-  //Serial.println(Exponent);
-  //Serial.println(Fraction,BIN);
   float Frac = 1.0;
   for (int i = 0; i < 24; i++) {
     byte temp = (Fraction >> i) & 1;
@@ -261,5 +354,34 @@ float long2float(long value) {
 
   return Sign2 * Frac * pow(2, Exp);
 
+}
+
+
+void Transfer(unsigned long* buffer, byte reg, byte Comm, byte Size){
+    /*
+    CPOL = 1 (idle high)
+    CPHA = 1 (data sampled on the clock rising edge and sent on the falling edge)
+    This means SPI_MODE3
+    It appears to be MSBFIRST
+  */
+//Combining the commands in to a 4 byte long
+  unsigned long temp1 = (unsigned long)(((0 << 8) | (0 << 0)));
+  unsigned long temp2 = (unsigned long)(((reg << 8) | (Comm << 0)) & 0x0000FFFF);
+  temp1 = temp1 * 65536;
+  unsigned long combined = temp1 + temp2;
+
+  // The transfer
+  SPI.beginTransaction(SPISettings(9600, MSBFIRST, SPI_MODE3));
+  digitalWrite(chipSelectPin, LOW);
+  buffer[0] = combined;
+  for (int y = 1; y < 16; y++) {
+    buffer[y] = 65;
+  }
+  SPI.transfer(buffer, 16);
+  digitalWrite(chipSelectPin, HIGH);
+  SPI.endTransaction();
+
+  delay(20);
+  
 }
 

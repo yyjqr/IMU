@@ -28,6 +28,17 @@
 #define     VN100_REG_YMR       27
 #define     VN100_REG_ACG       28
 
+#define  VN100_CmdID_ReadRegister               0x01,
+#define  VN100_CmdID_WriteRegister              0x02,
+#define  VN100_CmdID_WriteSettings              0x03,
+#define  VN100_CmdID_RestoreFactorySettings     0x04,
+#define  VN100_CmdID_Tare                       0x05,
+#define  VN100_CmdID_Reset                      0x06,
+#define  VN100_CmdID_FlashFirmware              0x07,
+#define  VN100_CmdID_SetRefFrame                0x08,
+#define  VN100_CmdID_HardwareInLoop             0x09,
+#define  VN100_CmdID_GetFlashCNT                0x0A,
+#define  VN100_CmdID_Calibrate                  0x0B 
 
 
  /* System Error */
