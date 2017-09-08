@@ -1,3 +1,6 @@
+#define BYTEONE 0x000000FF
+
+
 /* VN-100 Registers */
 #define     VN100_REG_MODEL     1
 #define     VN100_REG_HWREV     2
@@ -38,20 +41,20 @@
 #define  VN100_CmdID_SetRefFrame                0x08,
 #define  VN100_CmdID_HardwareInLoop             0x09,
 #define  VN100_CmdID_GetFlashCNT                0x0A,
-#define  VN100_CmdID_Calibrate                  0x0B 
+#define  VN100_CmdID_Calibrate                  0x0B
 
 
- /* System Error */
-  #define VN100_Error_None                     0
-  #define VN100_Error_HardFaultException       1
-  #define VN100_Error_InputBufferOverflow      2
-  #define VN100_Error_InvalidChecksum          3
-  #define VN100_Error_InvalidCommand           4
-  #define VN100_Error_NotEnoughParameters      5
-  #define VN100_Error_TooManyParameters        6
-  #define VN100_Error_InvalidParameter         7
-  #define VN100_Error_InvalidRegister          8
-  #define VN100_Error_UnauthorizedAccess       9
-  #define VN100_Error_WatchdogReset            10
-  #define VN100_Error_OutputBufferOverflow     11
-  #define VN100_Error_InsufficientBandwidth    12
+/* System Error */
+#define VN100_Error_None                     0
+#define VN100_Error_HardFaultException       1
+#define VN100_Error_InputBufferOverflow      2
+#define VN100_Error_InvalidChecksum          3
+#define VN100_Error_InvalidCommand           4
+#define VN100_Error_NotEnoughParameters      5
+#define VN100_Error_TooManyParameters        6
+#define VN100_Error_InvalidParameter         7
+#define VN100_Error_InvalidRegister          8
+#define VN100_Error_UnauthorizedAccess       9
+#define VN100_Error_WatchdogReset            10
+#define VN100_Error_OutputBufferOverflow     11
+#define VN100_Error_InsufficientBandwidth    12
