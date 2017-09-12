@@ -21,10 +21,10 @@ float velocity[3] = {0.0, 0.0, 0.0};
 float location[3] = {0.0, 0.0, 0.0};
 float old_time = 0;
 
-// struct for recieved data
+// struct for recieved data  Changing the order of this struct will mess things up when writing.  No idea why
 typedef struct {
-  byte zeroByte;
   byte ComID;
+  byte zeroByte;
   byte RegNum;
   byte ErrorCode;
   unsigned long Data[15]; //Not sure what the best number is for this or if it can be left blank
@@ -47,18 +47,18 @@ void setup() {
 
   delay(100);
 
- //  Tare();
+  //  Tare();
   //   writeTag("DynRoboticsLab2017");
   start_time_ms = millis();
   Serial.println("Setup Complete.");
-  setBaudRate(128000);
- // setBaudRate(115200);
+ // setBaudRate(128000);
+  delay(100);
   old_time = millis();
 }
 
 void loop() {
   //displacement();
- // delay(500);
+  // delay(500);
   // getTag();
   //  Serial.println("Getting Serial...");
   // getSerial();
@@ -80,12 +80,12 @@ void loop() {
   //getYPRMagAccRates();
   // getDCM();
   // getRates();
-   getBaud();
+  getBaud();
   //    getYPR();
   // speedTest();
   //getAcc();
 
-  //  delay(1000);
+  delay(1000);
 
 }
 
@@ -159,46 +159,16 @@ void spiRead(RecPacket* packet, byte reg, byte Size) {
 
 void spiWrite(RecPacket* packet, unsigned long* buffer, byte reg, byte Size) {
 
-/*
-  //Combining the commands in to a 4 byte long
-  unsigned long temp1 = (unsigned long)(((0 << 8) | (0 << 0)));
-  unsigned long temp2 = (unsigned long)(((reg << 8) | (2 << 0)) & 0x0000FFFF);
-  temp1 = temp1 * 65536;
-  unsigned long combined = temp1 + temp2;
+  Transfer(buffer, reg, 2, Size);
 
-  buffer[0] = combined;
-*/
- Serial.println("C");
-Transfer(buffer, reg, 2, Size);
- Serial.println("G");
-/*
-  // The transfer
-  SPI.beginTransaction(SPISettings(Rate, MSBFIRST, SPI_MODE3));
-  digitalWrite(chipSelectPin, LOW);
-
-  SPI.transfer(buffer, Size * 4);
-  digitalWrite(chipSelectPin, HIGH);
-  SPI.endTransaction();
-
-  delay(20);
-  SPI.beginTransaction(SPISettings(Rate, MSBFIRST, SPI_MODE3));
-  digitalWrite(chipSelectPin, LOW);
-
-  SPI.transfer(buffer, Size * 4);
-  digitalWrite(chipSelectPin, HIGH);
-  SPI.endTransaction();
-*/
   // Parsing the data into the RecPacket data type
-  packet->zeroByte = (byte)((buffer[0]) & 0x00000FF);
-  packet->ComID = (byte)((buffer[0] >> 8) & 0x00000FF);
-  packet->RegNum = (byte)((buffer[0] >> 16) & 0x00000FF);
-  packet->ErrorCode = (byte)((buffer[0] >> 24) & 0x00000FF);
- Serial.println("H");
-  //  for (int x = 0; x <= 15; x++) {
-  //    packet->Data[x] =  buffer[x + 1];
-  //  }
+  packet->zeroByte = (byte)((buffer[0]) & 0x000000FF);
+  packet->ComID = (byte)((buffer[0] >> 8) & 0x000000FF);
+  packet->RegNum = (byte)((buffer[0] >> 16) & 0x000000FF);
+  packet->ErrorCode = (byte)((buffer[0] >> 24) & 0x000000FF);
+
   checkError(packet->ErrorCode);
- Serial.println("I");
+
   Serial.print("Zero: ");
   Serial.println(packet->zeroByte);
   Serial.print("Command: ");
@@ -344,8 +314,8 @@ void getSerial() {
 
 }
 /*
- * This function returns the firmware version
- */
+   This function returns the firmware version
+*/
 void getFWVer() {
   RecPacket packet;
 
@@ -371,12 +341,13 @@ void getBaud() {
 
 
 void setBaudRate(unsigned long rate) {
-  Serial.println("A");
   RecPacket* packet;
   unsigned long buffer[2];
   buffer[1] = rate;
   spiWrite(packet, buffer, VN100_REG_SBAUD, 2);
- Serial.println("B");
+  Serial.print("Baud Rate Set To: ");
+  Serial.println(rate);
+
 }
 
 void getADOR() {
@@ -835,18 +806,21 @@ float long2float(long value) {
 
 void Transfer(unsigned long* buffer, byte reg, byte Comm, byte Size) {
 
-  //Combining the commands in to a 4 byte long
-  //  unsigned long temp1 = (unsigned long)(((0 << 8) | (0 << 0)));
-  //  unsigned long temp2 = (unsigned long)(((reg << 8) | (Comm << 0)) & 0x0000FFFF);
-  //  temp1 = temp1 * 65536;
-  //  unsigned long combined = temp1 + temp2;
+  unsigned long tempBuff[Size]; //Holds any data that will be written so it can be sent again on the second transfer
 
-  unsigned long combined = (unsigned long)((0 << 24) | (0 << 16) | (reg << 8) | (Comm << 0));
- Serial.println("D");
+  //Combining the commands in to a 4 byte long
+  unsigned long temp1 = (unsigned long)(((0 << 8) | (0 << 0)));
+  unsigned long temp2 = (unsigned long)(((reg << 8) | (Comm << 0)) & 0x0000FFFF);
+  temp1 = temp1 * 65536;
+  unsigned long combined = temp1 + temp2;
+
+  //  unsigned long combined = (unsigned long)((0 << 24) | (0 << 16) | (reg << 8) | (Comm << 0));
+
   buffer[0] = combined;
-//  for (int y = 1; y < Size; y++) {
-//    buffer[y] = 0;
-//  }
+
+  for (int y = 1; y < Size; y++) {
+    tempBuff[y] = buffer[y];
+  }
   /*
      We will make two transfers to get the required data/action.  The Response to the
      first transfer occurs during the second transfer.  This isn't an issue when you
@@ -859,17 +833,23 @@ void Transfer(unsigned long* buffer, byte reg, byte Comm, byte Size) {
   SPI.transfer(buffer, Size * 4); //Transfers data
   digitalWrite(chipSelectPin, HIGH); //Deselects the slave
   SPI.endTransaction();
- Serial.println("E");
-  delay(1); //Need to wait atleast 50us for the IMU to package the data
 
+  delay(1); //Need to wait atleast 50us for the IMU to package the data
+  // Refill the buffer with the useful data
+  buffer[0] = combined;
+  for (int y = 1; y < Size; y++) {
+    buffer[y] = tempBuff[y];
+  }
   // The second tansfer - We receieve the data from the previous transfer and ignore the data that returns.
   SPI.beginTransaction(SPISettings(Rate, MSBFIRST, SPI_MODE3));
   digitalWrite(chipSelectPin, LOW);
-  buffer[0] = combined;
   SPI.transfer(buffer, Size * 4);
   digitalWrite(chipSelectPin, HIGH);
   SPI.endTransaction();
- Serial.println("F");
+
+  //Serial.print("After Transfer: ");
+  //  Serial.println(buffer[0],HEX);
+
 }
 
 /*
@@ -879,6 +859,8 @@ void Transfer(unsigned long* buffer, byte reg, byte Comm, byte Size) {
    The LED is turned off when setup is executed.
 */
 void checkError(byte errorCode) {
+  Serial.println("Error Check");
+  // Serial.print(errorCode);
   switch (errorCode) {
     case VN100_Error_None:
       //No error so do nothing
@@ -972,41 +954,49 @@ void displacement() {
 
 
 
-  float acceleration[3]={0.0, 0.0, 0.0};
-float temp;
+  float acceleration[3] = {0.0, 0.0, 0.0};
+  float temp;
 
-Serial.print("Accel (x, y, z): ");
+  Serial.print("Accel (x, y, z): ");
   for (int x = 0; x < 3; x++) {
     temp = long2float(packet.Data[x]);
-    if(fabs(temp)>0.05){
-    acceleration[x] = (temp + old_acceleration[x]) / 2;
-    }else{
+    if (fabs(temp) > 0.05) {
+      acceleration[x] = (temp + old_acceleration[x]) / 2;
+    } else {
       acceleration[x] = old_acceleration[x];
     }
     old_acceleration[x] = acceleration[x];
     Serial.print(acceleration[x]);
-Serial.print("\t");
+    Serial.print("\t");
   }
-Serial.print("\n");
-  
+  Serial.print("\n");
+
   float Now = millis();
-  float elapsed = (Now - old_time)/1000.0;
+  float elapsed = (Now - old_time) / 1000.0;
   old_time = Now;
   Serial.print("Vel (x, y, z): ");
   for (int x = 0; x < 3; x++) {
     velocity[x] = velocity[x] + elapsed * acceleration[x];
     Serial.print(velocity[x]);
-Serial.print("\t");
+    Serial.print("\t");
   }
-Serial.print("\n");
+  Serial.print("\n");
 
-Serial.print("Location (x, y, z): ");
+  Serial.print("Location (x, y, z): ");
   for (int x = 0; x < 3; x++) {
     location[x] = location[x] + elapsed * velocity[x];
     Serial.print(location[x]);
-Serial.print("\t");
+    Serial.print("\t");
   }
-Serial.print("\n");
+  Serial.print("\n");
 
+}
+
+
+void orientation() {
+
+  RecPacket packet;
+
+  spiRead(&packet, VN100_REG_ACC, 4);
 }
 
