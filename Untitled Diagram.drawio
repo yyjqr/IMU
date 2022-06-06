@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-06-02T03:09:05.740Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36" etag="kseasNzJkc9swkzY4SG_" version="18.0.8" type="github">
+<mxfile host="app.diagrams.net" modified="2022-06-06T09:44:15.507Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36" etag="aVpTGpGXkBf-2SJnaOsR" version="18.0.8" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1350" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -51,7 +51,7 @@
         <mxCell id="pghOMtpiLglkwRpyQouD-15" value="传感器状态" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="530" y="360" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="pghOMtpiLglkwRpyQouD-16" value="电机/驱动器/舵机状态&lt;br&gt;车的速度，加速度等" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="pghOMtpiLglkwRpyQouD-16" value="电机/驱动器/舵机状态&lt;br&gt;车的速度，加速度，.里程数" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="530" y="450" width="130" height="80" as="geometry" />
         </mxCell>
       </root>
