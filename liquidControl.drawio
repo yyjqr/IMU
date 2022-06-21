@@ -1,1 +1,111 @@
-<mxfile host="app.diagrams.net" modified="2022-06-21T08:55:07.967Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36" version="20.0.1" etag="b_6xvpd5AEm0uCIBrvqx" type="github"><diagram id="Uv1PPevyKDhio1jruvgt">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-06-21T09:05:45.200Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36" etag="TCJG8CGx_A8lVG3_wsmy" version="20.0.1" type="github">
+  <diagram id="Uv1PPevyKDhio1jruvgt" name="Page-1">
+    <mxGraphModel dx="1350" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ZdjtLYGXI-j0EzLjHC-S-1" target="ZdjtLYGXI-j0EzLjHC-S-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-1" value="&lt;b&gt;虚拟伺服&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="590" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-2" value="杆" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="143" width="50" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-4" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="235.5" y="530" as="sourcePoint" />
+            <mxPoint x="234.5" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-5" value="" style="shape=collate;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="530" width="70" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-6" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="ZdjtLYGXI-j0EzLjHC-S-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="235" y="740" as="sourcePoint" />
+            <mxPoint x="280" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-7" value="油缸" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="180" y="740" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-8" value="" style="swimlane;startSize=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="630" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-9" value="" style="shape=link;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="210" y="270" as="sourcePoint" />
+            <mxPoint x="260" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-10" value="" style="shape=link;html=1;rounded=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="ZdjtLYGXI-j0EzLjHC-S-8">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="350" y="430" as="sourcePoint" />
+            <mxPoint x="450" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-11" value="拉线编码器" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="640" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-12" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZdjtLYGXI-j0EzLjHC-S-11" target="ZdjtLYGXI-j0EzLjHC-S-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="700" as="sourcePoint" />
+            <mxPoint x="420" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZdjtLYGXI-j0EzLjHC-S-13" target="ZdjtLYGXI-j0EzLjHC-S-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="480" />
+              <mxPoint x="760" y="795" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-13" value="ME端" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="450" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-15" value="can1 1Mbps" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="600" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-16" value="外设板，IO控制或比例流量控制" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="670" width="60" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-17" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="650" as="sourcePoint" />
+            <mxPoint x="210" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-18" value="mqtt /msgcenter&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="395" y="760" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-19" value="topic&amp;nbsp; /servo/ctrl&lt;br&gt;data 结构体" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="765" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-22" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZdjtLYGXI-j0EzLjHC-S-19" target="ZdjtLYGXI-j0EzLjHC-S-16">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="469.28932188134524" y="845" as="sourcePoint" />
+            <mxPoint x="140" y="930" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="180" y="910" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-23" value="&lt;b&gt;编码器值，与实际的距离&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="690" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-24" value="cansend 配置相关模式和数据输出" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="395" y="685" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-25" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="180" as="sourcePoint" />
+            <mxPoint x="210" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
