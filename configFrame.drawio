@@ -1,1 +1,43 @@
-<mxfile host="app.diagrams.net" modified="2022-07-06T01:28:27.672Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36" version="20.0.3" etag="Sqv18aTPhcg6iJAkw5fL" type="github"><diagram id="l1K9O1dgBkEUOhcivguU">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-07-06T01:33:28.386Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36" etag="PQGGGizasMQIbqVI6Dnd" version="20.0.3" type="github">
+  <diagram id="l1K9O1dgBkEUOhcivguU" name="Page-1">
+    <mxGraphModel dx="1350" dy="712" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zz37QBjWHWpGYe9e6wSS-1" target="zz37QBjWHWpGYe9e6wSS-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-1" value="配置类型" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zz37QBjWHWpGYe9e6wSS-2" target="zz37QBjWHWpGYe9e6wSS-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-2" value="配置文件路径" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zz37QBjWHWpGYe9e6wSS-4" target="zz37QBjWHWpGYe9e6wSS-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-4" value="源文件备份一份，读取需要配置的文件" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zz37QBjWHWpGYe9e6wSS-6" target="zz37QBjWHWpGYe9e6wSS-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-6" value="按行查找到所需修改的参数行或头" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zz37QBjWHWpGYe9e6wSS-8" target="zz37QBjWHWpGYe9e6wSS-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-8" value="修改相关行的参数值" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="610" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="zz37QBjWHWpGYe9e6wSS-10" value="文件修改保存" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
