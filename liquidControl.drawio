@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-07-11T07:16:05.210Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36" etag="WursvBVsDg7bDzoZ7VDJ" version="20.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2022-07-11T07:16:58.617Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36" etag="gEIh9YZq3pqWfFPwf8b7" version="20.0.4" type="github">
   <diagram id="Uv1PPevyKDhio1jruvgt" name="Page-1">
     <mxGraphModel dx="1350" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -73,8 +73,8 @@
         <mxCell id="ZdjtLYGXI-j0EzLjHC-S-15" value="can1 1Mbps" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="430" y="600" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-16" value="外设板，IO控制或比例流量控制" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="70" y="650" width="60" height="50" as="geometry" />
+        <mxCell id="ZdjtLYGXI-j0EzLjHC-S-16" value="外设板，IO控制单向阀 &lt;br&gt;或比例流量控制" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="70" y="640" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ZdjtLYGXI-j0EzLjHC-S-17" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -162,6 +162,9 @@
         </mxCell>
         <mxCell id="jch9uC5gcHZ-2w2xDuGa-1" value="&lt;b&gt;tools/send_command.py 发送json数据，/wcs_server/ topic&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="435" y="20" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jch9uC5gcHZ-2w2xDuGa-5" value="setspeed" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="440" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
